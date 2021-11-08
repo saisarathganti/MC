@@ -58,18 +58,18 @@ def frameExtractor(videopath):
     ret, frame = cap.read()
     return frame
 
-send_paste("upd1", "upd1")
+# send_paste("upd1", "upd1")
 # =============================================================================
 # Get the penultimate layer for training data
 # =============================================================================
 training_layer = generatePenultimateLayer("traindata")
 
-send_paste("upd2", "upd2")
+# send_paste("upd2", "upd2")
 # =============================================================================
 # Get the penultimate layer for test data (Our Data)
 # =============================================================================
 testing_layer = generatePenultimateLayer("test")
-send_paste("upd3", "upd3")
+# send_paste("upd3", "upd3")
 # =============================================================================
 # Recognize the gesture (use cosine similarity for comparing the vectors)
 # =============================================================================
@@ -83,7 +83,7 @@ for test in testing_layer:
     featureLabel.append(int(cosineSimilarity.index(min(cosineSimilarity))))
     cosineSimilarity = []
 
-send_paste(str(featureLabel), "upd4")
+# send_paste(str(featureLabel), "upd4")
 # totalCorrect = 0
 # for i, label in enumerate(featureLabel):
 #     if label == (i % 17):

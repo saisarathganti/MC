@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import tensorflow as tf
+from tensorflow.keras import backend as K
 
 keras = tf.keras
 load_model = keras.models.load_model
@@ -27,6 +28,7 @@ class HandShapeFeatureExtractor:
         if HandShapeFeatureExtractor.__single is None:
             real_model = load_model(os.path.join(BASE, 'cnn_model.h5'))
             self.model = real_model
+            real_model.summary()
             HandShapeFeatureExtractor.__single = self
 
         else:
@@ -34,12 +36,12 @@ class HandShapeFeatureExtractor:
 
     # private method to preprocess the image
     @staticmethod
-    def __pre_process_input_image(crop):
+    def __pre_process_input_image(img):
         try:
             img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            img = cv2.resize(crop, (200, 200))
-            img_arr = np.array(img) / 255.0
-            img_arr = img_arr.reshape(1, 200, 200, 1)
+            img = cv2.resize(img, (200, 200))
+            img = np.array(img) / 255.0
+            img_arr = img.reshape(1, 200, 200, 1)
             return img_arr
         except Exception as e:
             print(str(e))
@@ -67,6 +69,7 @@ class HandShapeFeatureExtractor:
         try:
             img_arr = self.__pre_process_input_image(image)
             # input = tf.keras.Input(tensor=image)
+
             return self.model.predict(img_arr)
         except Exception as e:
             raise
