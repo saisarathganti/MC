@@ -1,13 +1,13 @@
-# import cv2
-# import numpy as np
-# import os
-# import sys
-# import tensorflow as tf
-# ## import the handfeature extractor class
+import cv2
+import numpy as np
+import os
+import sys
+import tensorflow as tf
+## import the handfeature extractor class
 # from handshape_feature_extractor import HandShapeFeatureExtractor
 # from frameextractor import frameExtractor
-# # from scipy import spatial
-# import csv
+# from scipy import spatial
+import csv
 
 # workingDir = "" #sys.path[0]
 # TRAINING_DATA_PATH = workingDir + "traindata"
