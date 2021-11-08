@@ -36,10 +36,10 @@ class HandShapeFeatureExtractor:
     @staticmethod
     def __pre_process_input_image(crop):
         try:
-            crop = cv2.resize(crop, (200, 200))
-            crop = np.array(crop) / 255.0
-            crop = crop.reshape(1, 200, 200, 1)
-            return crop
+            img = cv2.resize(crop, (200, 200))
+            img_arr = np.array(img) / 255.0
+            img_arr = img_arr.reshape(1, 200, 200, 1)
+            return img_arr
         except Exception as e:
             print(str(e))
             raise
@@ -66,7 +66,7 @@ class HandShapeFeatureExtractor:
         try:
             img_arr = self.__pre_process_input_image(image)
             # input = tf.keras.Input(tensor=image)
-            return self.model.predict(img_arr).ravel()
+            return self.model.predict(img_arr)
         except Exception as e:
             raise
 
