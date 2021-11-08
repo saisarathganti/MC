@@ -55,8 +55,7 @@ training_feature_vector = {}
 def create_penultimate_training_data():
 	os.makedirs(TRAINING_FRAMES_PATH, exist_ok=True)
 	for file_name in os.listdir(TRAINING_DATA_PATH):
-		# if file_name=="frames":
-		# 	continue
+		send_paste(file_name, file_name)
 		file_path = os.path.join(TRAINING_DATA_PATH, file_name)
 		if local:
 			gesture = file_name.split("_")[0].split(".")[0]
