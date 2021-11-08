@@ -67,7 +67,7 @@ def create_penultimate_training_data():
 		print(file_path, frame_path)
 		frameExtractor(file_path, frame_path)
 		frame = cv2.imread(frame_path, cv2.IMREAD_GRAYSCALE)
-		mappingTrain[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
+		# mappingTrain[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
 
 
 # def create_penultimate_testing_data():
