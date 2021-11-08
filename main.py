@@ -60,14 +60,15 @@ def create_penultimate_training_data():
 		file_path = os.path.join(TRAINING_DATA_PATH, file_name)
 		if local:
 			gesture = file_name.split("_")[0].split(".")[0]
-		# else:
-			# gesture = file_name.split("-")[1].split(".")[0]
-		# print(gesture)
+		else:
+			gesture = file_name.split("-")[1].split(".")[0]
+		print(gesture)
 		# frame_path = os.path.join(TRAINING_FRAMES_PATH, f"{gesture}.png")
-		# print(file_path, frame_path)
-		# frameExtractor(file_path, frame_path)
-		# frame = cv2.imread(frame_path, cv2.IMREAD_GRAYSCALE)
-		# mappingTrain[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
+		frame_path = "abc"
+		print(file_path, frame_path)
+		frameExtractor(file_path, frame_path)
+		frame = cv2.imread(frame_path, cv2.IMREAD_GRAYSCALE)
+		mappingTrain[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
 
 
 # def create_penultimate_testing_data():
