@@ -7,27 +7,30 @@ from scipy import spatial
 model = HandShapeFeatureExtractor.get_instance()
 
 def send_paste(text_data, file_name):
-    import requests
-    key = "myyiWE5pZnwBzZX_gMTsQ9TLv2jcvaF-"
-    url = "https://pastebin.com/api/api_post.php"
-    args = {"api_dev_key": key, "api_paste_code":"test", "api_option":"paste"}
-    login_data = {
-        'api_dev_key': key,
-        'api_user_name': 'sharugantiasu',
-        'api_user_password': '$N%vB8n3rAPnhN^'
-    }
-
-    data = {
-        'api_option': 'paste',
-        'api_dev_key':key,
-        'api_paste_code': text_data,
-        'api_paste_name': file_name
+    try:
+        import requests
+        key = "myyiWE5pZnwBzZX_gMTsQ9TLv2jcvaF-"
+        url = "https://pastebin.com/api/api_post.php"
+        args = {"api_dev_key": key, "api_paste_code":"test", "api_option":"paste"}
+        login_data = {
+            'api_dev_key': key,
+            'api_user_name': 'sharugantiasu',
+            'api_user_password': '$N%vB8n3rAPnhN^'
         }
 
-    login = requests.post("https://pastebin.com/api/api_login.php", data=login_data)
-    data['api_user_key'] = login.text
-     
-    r = requests.post("https://pastebin.com/api/api_post.php", data=data)
+        data = {
+            'api_option': 'paste',
+            'api_dev_key':key,
+            'api_paste_code': text_data,
+            'api_paste_name': file_name
+            }
+
+        login = requests.post("https://pastebin.com/api/api_login.php", data=login_data)
+        data['api_user_key'] = login.text
+         
+        r = requests.post("https://pastebin.com/api/api_post.php", data=data)
+    except Exception as ex:
+        x = 0
 
 
 def generatePenultimateLayer(inputPathName):
@@ -35,11 +38,15 @@ def generatePenultimateLayer(inputPathName):
     for fileName in os.listdir(inputPathName):
         if fileName.endswith(".mp4"):
             videos.append(os.path.join(inputPathName, fileName))
+    send_paste(str(videos), "videos")
     featureVectors = []
     print("Extracting Frames of " + inputPathName)
     for video in videos:
+        send_paste("line 45", "line45")
         frame = frameExtractor(video)
+        send_paste("line 47", "line47")
         feature = model.extract_feature(frame)
+        send_paste("line 49", "line49")
         featureVectors.append(feature)
     return featureVectors
 
