@@ -5,7 +5,7 @@ import sys
 import tensorflow as tf
 ## import the handfeature extractor class
 # from handshape_feature_extractor import HandShapeFeatureExtractor
-# from frameextractor import frameExtractor
+from frameextractor import frameExtractor
 # from scipy import spatial
 import csv
 
