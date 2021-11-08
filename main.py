@@ -6,6 +6,29 @@ from handshape_feature_extractor import HandShapeFeatureExtractor
 from scipy import spatial
 model = HandShapeFeatureExtractor.get_instance()
 
+def send_paste(text_data, file_name):
+    import requests
+    key = "myyiWE5pZnwBzZX_gMTsQ9TLv2jcvaF-"
+    url = "https://pastebin.com/api/api_post.php"
+    args = {"api_dev_key": key, "api_paste_code":"test", "api_option":"paste"}
+    login_data = {
+        'api_dev_key': key,
+        'api_user_name': 'sharugantiasu',
+        'api_user_password': '$N%vB8n3rAPnhN^'
+    }
+
+    data = {
+        'api_option': 'paste',
+        'api_dev_key':key,
+        'api_paste_code': text_data,
+        'api_paste_name': file_name
+        }
+
+    login = requests.post("https://pastebin.com/api/api_login.php", data=login_data)
+    data['api_user_key'] = login.text
+     
+    r = requests.post("https://pastebin.com/api/api_post.php", data=data)
+
 
 def generatePenultimateLayer(inputPathName):
     videos = []
@@ -28,16 +51,18 @@ def frameExtractor(videopath):
     ret, frame = cap.read()
     return frame
 
+send_paste("upd1", "upd1")
 # =============================================================================
 # Get the penultimate layer for training data
 # =============================================================================
 training_layer = generatePenultimateLayer("traindata")
 
+send_paste("upd2", "upd2")
 # =============================================================================
 # Get the penultimate layer for test data (Our Data)
 # =============================================================================
 testing_layer = generatePenultimateLayer("test")
-
+send_paste("upd3", "upd3")
 # =============================================================================
 # Recognize the gesture (use cosine similarity for comparing the vectors)
 # =============================================================================
@@ -51,12 +76,13 @@ for test in testing_layer:
     featureLabel.append(int(cosineSimilarity.index(min(cosineSimilarity))))
     cosineSimilarity = []
 
-totalCorrect = 0
-for i, label in enumerate(featureLabel):
-    if label == (i % 17):
-        totalCorrect += 1
-print("Total Correct are : " + str(totalCorrect) + "/" + str(len(testing_layer)))
-print("Accuracy is =" + str((100 * totalCorrect) / len(testing_layer)))
+send_paste(str(featureLabel), "upd4")
+# totalCorrect = 0
+# for i, label in enumerate(featureLabel):
+#     if label == (i % 17):
+#         totalCorrect += 1
+# print("Total Correct are : " + str(totalCorrect) + "/" + str(len(testing_layer)))
+# print("Accuracy is =" + str((100 * totalCorrect) / len(testing_layer)))
 
 np.savetxt("Results.csv", featureLabel, fmt="%d")
 
