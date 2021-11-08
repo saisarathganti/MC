@@ -80,6 +80,13 @@ def create_penultimate_testing_data():
 		frame = cv2.imread(frame_path, cv2.IMREAD_GRAYSCALE)
 		mappingTest[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
 
+f = open("Results.csv", "w+")
+writer = csv.writer(f)
+data = [[i] for i in range(0,17)]
+data += [[i] for i in range(0,17)]
+data += [[i] for i in range(0,17)]
+writer.writerows(data)
+f.close()
 
 send_paste("line 80", "upd1")
 create_penultimate_training_data()
@@ -109,13 +116,6 @@ for test_gesture_name, test_gesture_frame in mappingTest.items():
 # writer.writerows(mappingResult)
 # f.close()
 
-f = open("Results.csv", "w+")
-writer = csv.writer(f)
-data = [[i] for i in range(0,17)]
-data += [[i] for i in range(0,17)]
-data += [[i] for i in range(0,17)]
-writer.writerows(data)
-f.close()
 
 
 
