@@ -80,6 +80,8 @@
 # 		frame = cv2.imread(frame_path, cv2.IMREAD_GRAYSCALE)
 # 		mappingTest[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
 
+import os
+import csv
 f = open("Results.csv", "w+")
 writer = csv.writer(f)
 data = [[i] for i in range(0,17)]
