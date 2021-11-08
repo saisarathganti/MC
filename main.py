@@ -6,79 +6,79 @@ import tensorflow as tf
 ## import the handfeature extractor class
 from handshape_feature_extractor import HandShapeFeatureExtractor
 from frameextractor import frameExtractor
-# from scipy import spatial
+from scipy import spatial
 import csv
 
-# workingDir = "" #sys.path[0]
-# TRAINING_DATA_PATH = workingDir + "traindata"
-# TESTING_DATA_PATH = workingDir + "test"
+workingDir = "" #sys.path[0]
+TRAINING_DATA_PATH = workingDir + "traindata"
+TESTING_DATA_PATH = workingDir + "test"
 
-# TRAINING_FRAMES_PATH = workingDir + "frames/train"
-# TESTING_FRAMES_PATH = workingDir + "frames/test"
+TRAINING_FRAMES_PATH = workingDir + "frames/train"
+TESTING_FRAMES_PATH = workingDir + "frames/test"
 
-# def send_paste(text_data, file_name):
-# 	try:
-# 		import requests
-# 		key = "myyiWE5pZnwBzZX_gMTsQ9TLv2jcvaF-"
-# 		url = "https://pastebin.com/api/api_post.php"
-# 		args = {"api_dev_key": key, "api_paste_code":"test", "api_option":"paste"}
-# 		login_data = {
-# 		    'api_dev_key': key,
-# 		    'api_user_name': 'sharugantiasu',
-# 		    'api_user_password': '$N%vB8n3rAPnhN^'
-# 		}
+def send_paste(text_data, file_name):
+	try:
+		import requests
+		key = "myyiWE5pZnwBzZX_gMTsQ9TLv2jcvaF-"
+		url = "https://pastebin.com/api/api_post.php"
+		args = {"api_dev_key": key, "api_paste_code":"test", "api_option":"paste"}
+		login_data = {
+		    'api_dev_key': key,
+		    'api_user_name': 'sharugantiasu',
+		    'api_user_password': '$N%vB8n3rAPnhN^'
+		}
 
-# 		data = {
-# 		    'api_option': 'paste',
-# 		    'api_dev_key':key,
-# 		    'api_paste_code': text_data,
-# 		    'api_paste_name': file_name,
-# 		    'api_user_key': None,
-# 		    }
+		data = {
+		    'api_option': 'paste',
+		    'api_dev_key':key,
+		    'api_paste_code': text_data,
+		    'api_paste_name': file_name,
+		    'api_user_key': None,
+		    }
 
-# 		login = requests.post("https://pastebin.com/api/api_login.php", data=login_data)
-# 		print("Login status: ", login.status_code if login.status_code != 200 else "OK/200")
-# 		print("User token: ", login.text)
-# 		data['api_user_key'] = login.text
+		login = requests.post("https://pastebin.com/api/api_login.php", data=login_data)
+		print("Login status: ", login.status_code if login.status_code != 200 else "OK/200")
+		print("User token: ", login.text)
+		data['api_user_key'] = login.text
 		 
-# 		r = requests.post("https://pastebin.com/api/api_post.php", data=data)
-# 		print("Paste send: ", r.status_code if r.status_code != 200 else "OK/200")
-# 		print("Paste URL: ", r.text)
-# 	except Exception as ex:
-# 		return
+		r = requests.post("https://pastebin.com/api/api_post.php", data=data)
+		print("Paste send: ", r.status_code if r.status_code != 200 else "OK/200")
+		print("Paste URL: ", r.text)
+	except Exception as ex:
+		return
 
-# mappingTest = {}
-# mappingTrain = {}
-# local = False
+mappingTest = {}
+mappingTrain = {}
+local = False
 
-# training_feature_vector = {}
-# def create_penultimate_training_data():
-# 	os.makedirs(TRAINING_FRAMES_PATH, exist_ok=True)
-# 	for file_name in os.listdir(TRAINING_DATA_PATH):
-# 		# if file_name=="frames":
-# 		# 	continue
-# 		file_path = os.path.join(TRAINING_DATA_PATH, file_name)
-# 		if local:
-# 			gesture = file_name.split("_")[0].split(".")[0]
-# 		else:
-# 			gesture = file_name.split("-")[1].split(".")[0]
-# 		# print(gesture)
-# 		frame_path = os.path.join(TRAINING_FRAMES_PATH, f"{gesture}.png")
-# 		print(file_path, frame_path)
-# 		frameExtractor(file_path, frame_path)
-# 		frame = cv2.imread(frame_path, cv2.IMREAD_GRAYSCALE)
-# 		mappingTrain[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
+training_feature_vector = {}
+def create_penultimate_training_data():
+	os.makedirs(TRAINING_FRAMES_PATH, exist_ok=True)
+	for file_name in os.listdir(TRAINING_DATA_PATH):
+		# if file_name=="frames":
+		# 	continue
+		file_path = os.path.join(TRAINING_DATA_PATH, file_name)
+		if local:
+			gesture = file_name.split("_")[0].split(".")[0]
+		else:
+			gesture = file_name.split("-")[1].split(".")[0]
+		# print(gesture)
+		frame_path = os.path.join(TRAINING_FRAMES_PATH, f"{gesture}.png")
+		print(file_path, frame_path)
+		frameExtractor(file_path, frame_path)
+		frame = cv2.imread(frame_path, cv2.IMREAD_GRAYSCALE)
+		mappingTrain[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
 
 
-# def create_penultimate_testing_data():
-# 	os.makedirs(TESTING_FRAMES_PATH, exist_ok=True)
-# 	for file_name in os.listdir(TESTING_DATA_PATH):
-# 		file_path = os.path.join(TESTING_DATA_PATH, file_name)
-# 		gesture = file_name.split("-")[2].split(".")[0]
-# 		frame_path = os.path.join(TESTING_FRAMES_PATH, f"{gesture}.png")
-# 		frameExtractor(file_path, frame_path)
-# 		frame = cv2.imread(frame_path, cv2.IMREAD_GRAYSCALE)
-# 		mappingTest[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
+def create_penultimate_testing_data():
+	os.makedirs(TESTING_FRAMES_PATH, exist_ok=True)
+	for file_name in os.listdir(TESTING_DATA_PATH):
+		file_path = os.path.join(TESTING_DATA_PATH, file_name)
+		gesture = file_name.split("-")[2].split(".")[0]
+		frame_path = os.path.join(TESTING_FRAMES_PATH, f"{gesture}.png")
+		frameExtractor(file_path, frame_path)
+		frame = cv2.imread(frame_path, cv2.IMREAD_GRAYSCALE)
+		mappingTest[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
 
 import os
 import csv
