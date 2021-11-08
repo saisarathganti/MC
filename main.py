@@ -81,7 +81,7 @@ def create_penultimate_testing_data():
 		mappingTest[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
 
 
-send_paste("line 80", "upd1")
+sendasfdkjl_paste("line 80", "upd1")
 create_penultimate_training_data()
 send_paste("line 82", "upd2")
 create_penultimate_testing_data()
