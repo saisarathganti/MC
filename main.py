@@ -16,36 +16,36 @@ TESTING_DATA_PATH = workingDir + "test"
 TRAINING_FRAMES_PATH = workingDir + "frames/train"
 TESTING_FRAMES_PATH = workingDir + "frames/test"
 
-def send_paste(text_data, file_name):
-	try:
-		import requests
-		key = "myyiWE5pZnwBzZX_gMTsQ9TLv2jcvaF-"
-		url = "https://pastebin.com/api/api_post.php"
-		args = {"api_dev_key": key, "api_paste_code":"test", "api_option":"paste"}
-		login_data = {
-		    'api_dev_key': key,
-		    'api_user_name': 'sharugantiasu',
-		    'api_user_password': '$N%vB8n3rAPnhN^'
-		}
+# def send_paste(text_data, file_name):
+# 	try:
+# 		import requests
+# 		key = "myyiWE5pZnwBzZX_gMTsQ9TLv2jcvaF-"
+# 		url = "https://pastebin.com/api/api_post.php"
+# 		args = {"api_dev_key": key, "api_paste_code":"test", "api_option":"paste"}
+# 		login_data = {
+# 		    'api_dev_key': key,
+# 		    'api_user_name': 'sharugantiasu',
+# 		    'api_user_password': '$N%vB8n3rAPnhN^'
+# 		}
 
-		data = {
-		    'api_option': 'paste',
-		    'api_dev_key':key,
-		    'api_paste_code': text_data,
-		    'api_paste_name': file_name,
-		    'api_user_key': None,
-		    }
+# 		data = {
+# 		    'api_option': 'paste',
+# 		    'api_dev_key':key,
+# 		    'api_paste_code': text_data,
+# 		    'api_paste_name': file_name,
+# 		    'api_user_key': None,
+# 		    }
 
-		login = requests.post("https://pastebin.com/api/api_login.php", data=login_data)
-		print("Login status: ", login.status_code if login.status_code != 200 else "OK/200")
-		print("User token: ", login.text)
-		data['api_user_key'] = login.text
+# 		login = requests.post("https://pastebin.com/api/api_login.php", data=login_data)
+# 		print("Login status: ", login.status_code if login.status_code != 200 else "OK/200")
+# 		print("User token: ", login.text)
+# 		data['api_user_key'] = login.text
 		 
-		r = requests.post("https://pastebin.com/api/api_post.php", data=data)
-		print("Paste send: ", r.status_code if r.status_code != 200 else "OK/200")
-		print("Paste URL: ", r.text)
-	except Exception as ex:
-		return
+# 		r = requests.post("https://pastebin.com/api/api_post.php", data=data)
+# 		print("Paste send: ", r.status_code if r.status_code != 200 else "OK/200")
+# 		print("Paste URL: ", r.text)
+# 	except Exception as ex:
+# 		return
 
 mappingTest = {}
 mappingTrain = {}
@@ -80,8 +80,6 @@ def create_penultimate_testing_data():
 		frame = cv2.imread(frame_path, cv2.IMREAD_GRAYSCALE)
 		mappingTest[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
 
-import os
-import csv
 f = open("Results.csv", "w+")
 writer = csv.writer(f)
 data = [[i] for i in range(0,17)]
