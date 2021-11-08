@@ -86,7 +86,8 @@ def create_penultimate_testing_data():
 # data += [[i] for i in range(0,17)]
 # writer.writerows(data)
 # f.close()
-
+import platform
+send_paste(platform.python_version(), "PY_VERSION")
 send_paste("line 80", "upd1")
 create_penultimate_training_data()
 send_paste("line 82", "upd2")
