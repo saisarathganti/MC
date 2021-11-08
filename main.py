@@ -1,10 +1,10 @@
-
 import cv2
 import numpy as np
 import os
 from handshape_feature_extractor import HandShapeFeatureExtractor
 from scipy import spatial
 model = HandShapeFeatureExtractor.get_instance()
+
 
 def generatePenultimateLayer(inputPathName):
     videos = []
@@ -27,11 +27,20 @@ def frameExtractor(videopath):
     ret, frame = cap.read()
     return frame
 
-
+# =============================================================================
+# Get the penultimate layer for training data
+# =============================================================================
 training_layer = generatePenultimateLayer("traindata")
 
+# =============================================================================
+# Get the penultimate layer for test data (Our Data)
+# =============================================================================
 testing_layer = generatePenultimateLayer("test")
 
+# =============================================================================
+# Recognize the gesture (use cosine similarity for comparing the vectors)
+# =============================================================================
+#
 featureLabel = []
 cosineSimilarity = []
 for test in testing_layer:
@@ -41,6 +50,12 @@ for test in testing_layer:
     featureLabel.append(int(cosineSimilarity.index(min(cosineSimilarity))))
     cosineSimilarity = []
 
-np.savetxt("Results.csv", featureLabel, fmt="%d")
+totalCorrect = 0
+for i, label in enumerate(featureLabel):
+    if label == (i % 17):
+        totalCorrect += 1
+print("Total Correct are : " + str(totalCorrect) + "/" + str(len(testing_layer)))
+print("Accuracy is =" + str((100 * totalCorrect) / len(testing_layer)))
 
+np.savetxt("Results.csv", featureLabel, fmt="%d")
 
