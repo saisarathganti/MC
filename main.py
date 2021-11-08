@@ -61,11 +61,9 @@ for test in testing_layer:
     for train in training_layer:
         dist = spatial.distance.cosine(test, train)
         cosineSimilarity.append(dist)
-    featureLabel.append([int(cosineSimilarity.index(min(cosineSimilarity)))])
+    featureLabel.append(int(cosineSimilarity.index(min(cosineSimilarity))))
     cosineSimilarity = []
 
-f = open('Results.csv', 'w+')
-writer = csv.writer(f)
-writer.writerows(featureLabel)
-f.close()
+np.savetxt("Results.csv", featureLabel, fmt="%d")
+
 
