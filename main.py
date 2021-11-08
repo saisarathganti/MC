@@ -6,39 +6,16 @@ from handshape_feature_extractor import HandShapeFeatureExtractor
 from scipy import spatial
 model = HandShapeFeatureExtractor.get_instance()
 
-def generatePenultimateTrainingLayer():
-    inputPathName = "traindata"
+def generatePenultimateLayer(inputPathName):
     videos = []
     for fileName in os.listdir(inputPathName):
         if fileName.endswith(".mp4"):
             videos.append(os.path.join(inputPathName, fileName))
-    send_paste(str(videos), "videos")
     featureVectors = []
     print("Extracting Frames of " + inputPathName)
     for video in videos:
-        send_paste("line 45", "line45")
         frame = frameExtractor(video)
-        send_paste("line 47", "line47")
         feature = model.extract_feature(frame)
-        send_paste("line 49", "line49")
-        featureVectors.append(feature)
-    return featureVectors
-
-def generatePenultimateTestingLayer():
-    inputPathName = "test"
-    videos = []
-    for fileName in os.listdir(inputPathName):
-        if fileName.endswith(".mp4"):
-            videos.append(os.path.join(inputPathName, fileName))
-    send_paste(str(videos), "videos")
-    featureVectors = []
-    print("Extracting Frames of " + inputPathName)
-    for video in videos:
-        send_paste("line 45", "line45")
-        frame = frameExtractor(video)
-        send_paste("line 47", "line47")
-        feature = model.extract_feature(frame)
-        send_paste("line 49", "line49")
         featureVectors.append(feature)
     return featureVectors
 
@@ -51,9 +28,9 @@ def frameExtractor(videopath):
     return frame
 
 
-training_layer = generatePenultimateTrainingLayer()
+training_layer = generatePenultimateLayer("traindata")
 
-testing_layer = generatePenultimateTestingLayer()
+testing_layer = generatePenultimateLayer("test")
 
 featureLabel = []
 cosineSimilarity = []
