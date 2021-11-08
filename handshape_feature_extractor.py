@@ -36,6 +36,7 @@ class HandShapeFeatureExtractor:
     @staticmethod
     def __pre_process_input_image(crop):
         try:
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             img = cv2.resize(crop, (200, 200))
             img_arr = np.array(img) / 255.0
             img_arr = img_arr.reshape(1, 200, 200, 1)
@@ -69,5 +70,3 @@ class HandShapeFeatureExtractor:
             return self.model.predict(img_arr)
         except Exception as e:
             raise
-
-
