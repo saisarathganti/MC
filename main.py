@@ -63,8 +63,7 @@ def create_penultimate_training_data():
 		else:
 			gesture = file_name.split("-")[1].split(".")[0]
 		print(gesture)
-		# frame_path = os.path.join(TRAINING_FRAMES_PATH, f"{gesture}.png")
-		frame_path = "abc"
+		frame_path = os.path.join(TRAINING_FRAMES_PATH, gesture+".png")
 		print(file_path, frame_path)
 		frameExtractor(file_path, frame_path)
 		frame = cv2.imread(frame_path, cv2.IMREAD_GRAYSCALE)
