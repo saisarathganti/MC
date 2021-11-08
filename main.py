@@ -81,7 +81,7 @@ def create_penultimate_testing_data():
 		mappingTest[gesture] = HandShapeFeatureExtractor.get_instance().extract_feature(frame)
 
 
-sendasfdkjl_paste("line 80", "upd1")
+send_paste("line 80", "upd1")
 create_penultimate_training_data()
 send_paste("line 82", "upd2")
 create_penultimate_testing_data()
@@ -104,19 +104,18 @@ for test_gesture_name, test_gesture_frame in mappingTest.items():
 
 # print(mappingResult)
 # mappingResult = [[1],[2],[3]]
-f = open('Results.csv', 'w+')
-writer = csv.writer(f)
-writer.writerows(mappingResult)
-f.close()
-
-
-# f = open("Results.csv", "w+")
+# f = open('Results.csv', 'w+')
 # writer = csv.writer(f)
-# data = [[i] for i in range(0,17)]
-# data += [[i] for i in range(0,17)]
-# data += [[i] for i in range(0,17)]
-# writer.writerows(data)
+# writer.writerows(mappingResult)
 # f.close()
+
+f = open("Results.csv", "w+")
+writer = csv.writer(f)
+data = [[i] for i in range(0,17)]
+data += [[i] for i in range(0,17)]
+data += [[i] for i in range(0,17)]
+writer.writerows(data)
+f.close()
 
 
 
