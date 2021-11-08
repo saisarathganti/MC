@@ -6,6 +6,8 @@ from scipy import spatial
 model = HandShapeFeatureExtractor.get_instance()
 
 
+
+
 def generatePenultimateLayer(inputPathName):
     videos = []
     for fileName in os.listdir(inputPathName):
@@ -20,22 +22,30 @@ def generatePenultimateLayer(inputPathName):
     return featureVectors
 
 
+
+
 def frameExtractor(videopath):
     cap = cv2.VideoCapture(videopath)
     video_length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1
-    cap.set(1, int(video_length / 1.6))
+    cap.set(1, int(video_length / 2))
     ret, frame = cap.read()
     return frame
+
+
 
 # =============================================================================
 # Get the penultimate layer for training data
 # =============================================================================
 training_layer = generatePenultimateLayer("traindata")
 
+
+
 # =============================================================================
 # Get the penultimate layer for test data (Our Data)
 # =============================================================================
 testing_layer = generatePenultimateLayer("test")
+
+
 
 # =============================================================================
 # Recognize the gesture (use cosine similarity for comparing the vectors)
@@ -50,12 +60,6 @@ for test in testing_layer:
     featureLabel.append(int(cosineSimilarity.index(min(cosineSimilarity))))
     cosineSimilarity = []
 
-totalCorrect = 0
-for i, label in enumerate(featureLabel):
-    if label == (i % 17):
-        totalCorrect += 1
-print("Total Correct are : " + str(totalCorrect) + "/" + str(len(testing_layer)))
-print("Accuracy is =" + str((100 * totalCorrect) / len(testing_layer)))
 
 np.savetxt("Results.csv", featureLabel, fmt="%d")
 
